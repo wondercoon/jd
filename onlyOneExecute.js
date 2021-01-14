@@ -4,6 +4,7 @@ const axios = require("axios");
 const smartReplace = require("./smartReplace");
 
 async function changeFiele() {
+	console.log(process.env.SYNCURL);
     let response = await axios.get(process.env.SYNCURL);
     let content = response.data;
     content = await smartReplace.inject(content);
@@ -25,6 +26,7 @@ async function start() {
 
     try {
         await changeFiele();
+		console.log('');
         await exec("node executeOnce.js", { stdio: "inherit" });
     } catch (e) {
         console.log("执行异常:" + e);
